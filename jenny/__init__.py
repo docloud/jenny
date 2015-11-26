@@ -4,11 +4,14 @@
 Copyright 2015 jenny
 """
 
+import six
 import pandoc
 import subprocess
 
 
 def compile(content, input_format, output_format, *args):
+    if six.PY2 and isinstance(content, unicode):
+        content = content.encode("utf8")
 
     subprocess_arguments = ['pandoc',
                             '--from=%s' % input_format,
